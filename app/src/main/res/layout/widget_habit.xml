@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:background="#F5F5F5">
+
+    <TextView
+        android:id="@+id/widget_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="今日待打卡"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="#3700B3"
+        android:layout_marginBottom="8dp" />
+
+    <!-- slot 1 -->
+    <LinearLayout
+        android:id="@+id/widget_slot_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingVertical="3dp">
+        <TextView
+            android:id="@+id/widget_goal_name_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="#212121" />
+        <Button
+            android:id="@+id/widget_btn_1"
+            android:layout_width="48dp"
+            android:layout_height="28dp"
+            android:text="打卡"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+    <!-- slot 2 -->
+    <LinearLayout
+        android:id="@+id/widget_slot_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingVertical="3dp">
+        <TextView
+            android:id="@+id/widget_goal_name_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="#212121" />
+        <Button
+            android:id="@+id/widget_btn_2"
+            android:layout_width="48dp"
+            android:layout_height="28dp"
+            android:text="打卡"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+    <!-- slot 3 -->
+    <LinearLayout
+        android:id="@+id/widget_slot_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingVertical="3dp">
+        <TextView
+            android:id="@+id/widget_goal_name_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="#212121" />
+        <Button
+            android:id="@+id/widget_btn_3"
+            android:layout_width="48dp"
+            android:layout_height="28dp"
+            android:text="打卡"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+    <!-- slot 4 -->
+    <LinearLayout
+        android:id="@+id/widget_slot_4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingVertical="3dp">
+        <TextView
+            android:id="@+id/widget_goal_name_4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="#212121" />
+        <Button
+            android:id="@+id/widget_btn_4"
+            android:layout_width="48dp"
+            android:layout_height="28dp"
+            android:text="打卡"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+    <!-- slot 5 -->
+    <LinearLayout
+        android:id="@+id/widget_slot_5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingVertical="3dp">
+        <TextView
+            android:id="@+id/widget_goal_name_5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="#212121" />
+        <Button
+            android:id="@+id/widget_btn_5"
+            android:layout_width="48dp"
+            android:layout_height="28dp"
+            android:text="打卡"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+    <!-- slot 6 -->
+    <LinearLayout
+        android:id="@+id/widget_slot_6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingVertical="3dp">
+        <TextView
+            android:id="@+id/widget_goal_name_6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="#212121" />
+        <Button
+            android:id="@+id/widget_btn_6"
+            android:layout_width="48dp"
+            android:layout_height="28dp"
+            android:text="打卡"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/widget_all_done"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="今日全部完成"
+        android:textSize="13sp"
+        android:textColor="#018786"
+        android:gravity="center"
+        android:layout_marginTop="8dp"
+        android:visibility="gone" />
+
+</LinearLayout>

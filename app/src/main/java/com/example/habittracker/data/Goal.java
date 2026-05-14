@@ -5,6 +5,7 @@ public class Goal {
     private String title;
     private int reminderHour;
     private int reminderMinute;
+    private transient boolean checkedInToday;
 
     public Goal(String title, int reminderHour, int reminderMinute) {
         this.title = title;
@@ -20,4 +21,6 @@ public class Goal {
     public void setReminderHour(int h) { this.reminderHour = h; }
     public int getReminderMinute() { return reminderMinute; }
     public void setReminderMinute(int m) { this.reminderMinute = m; }
+    public boolean isCheckedInToday() { return checkedInToday; }
+    public void setCheckedInToday(boolean v) { this.checkedInToday = v; }
 }
