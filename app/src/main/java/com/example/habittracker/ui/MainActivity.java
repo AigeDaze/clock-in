@@ -5,6 +5,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -17,6 +22,7 @@ import com.example.habittracker.R;
 import com.example.habittracker.data.AppDatabase;
 import com.example.habittracker.data.Checkin;
 import com.example.habittracker.data.Goal;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
@@ -33,6 +39,12 @@ public class MainActivity extends AppCompatActivity {
     private GoalAdapter adapter;
     private AppDatabase db;
 
+    private View contentWrapper;
+    private TextView textTodayTitle;
+    private HorizontalScrollView pendingScroll;
+    private LinearLayout pendingContainer;
+    private TextView textAllDone;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +56,12 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         db = AppDatabase.getInstance(this);
+
+        contentWrapper = findViewById(R.id.content_wrapper);
+        textTodayTitle = findViewById(R.id.text_today_title);
+        pendingScroll = findViewById(R.id.pending_scroll);
+        pendingContainer = findViewById(R.id.pending_container);
+        textAllDone = findViewById(R.id.text_all_done);
 
         habitRecyclerView = findViewById(R.id.recycler_habits);
         habitRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -83,6 +101,8 @@ public class MainActivity extends AppCompatActivity {
         AppDatabase.databaseWriteExecutor.execute(() -> {
             List<Goal> goals = db.goalDao().getAllGoalsSync();
             String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+
+            List<Goal> pendingGoals = new ArrayList<>();
             List<GoalItem> items = new ArrayList<>();
 
             for (Goal goal : goals) {
@@ -90,13 +110,45 @@ public class MainActivity extends AppCompatActivity {
                 int streak = computeStreak(dates);
                 boolean checkedInToday = dates.contains(today);
                 items.add(new GoalItem(goal, streak, checkedInToday));
+                if (!checkedInToday) {
+                    pendingGoals.add(goal);
+                }
             }
 
             runOnUiThread(() -> {
                 adapter.submitList(items);
+                updatePendingSection(pendingGoals);
                 updateEmptyState(items.isEmpty());
             });
         });
+    }
+
+    private void updatePendingSection(List<Goal> pendingGoals) {
+        pendingContainer.removeAllViews();
+
+        if (pendingGoals.isEmpty()) {
+            textTodayTitle.setVisibility(View.GONE);
+            pendingScroll.setVisibility(View.GONE);
+            textAllDone.setVisibility(View.VISIBLE);
+            return;
+        }
+
+        textAllDone.setVisibility(View.GONE);
+        textTodayTitle.setVisibility(View.VISIBLE);
+        pendingScroll.setVisibility(View.VISIBLE);
+
+        LayoutInflater inflater = LayoutInflater.from(this);
+        for (Goal goal : pendingGoals) {
+            View cardView = inflater.inflate(R.layout.item_pending_checkin, pendingContainer, false);
+
+            TextView nameView = cardView.findViewById(R.id.card_goal_name);
+            nameView.setText(goal.getTitle());
+
+            MaterialButton checkinBtn = cardView.findViewById(R.id.card_btn_checkin);
+            checkinBtn.setOnClickListener(v -> performCheckIn(goal));
+
+            pendingContainer.addView(cardView);
+        }
     }
 
     private void performCheckIn(Goal goal) {
@@ -140,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateEmptyState(boolean empty) {
-        findViewById(R.id.text_empty).setVisibility(empty ? android.view.View.VISIBLE : android.view.View.GONE);
-        habitRecyclerView.setVisibility(empty ? android.view.View.GONE : android.view.View.VISIBLE);
+        contentWrapper.setVisibility(empty ? View.GONE : View.VISIBLE);
+        findViewById(R.id.text_empty).setVisibility(empty ? View.VISIBLE : View.GONE);
     }
 }
