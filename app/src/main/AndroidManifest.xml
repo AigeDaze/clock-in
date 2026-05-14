@@ -48,6 +48,12 @@
             android:exported="false"
             android:parentActivityName=".ui.MainActivity" />
 
+        <!-- 统计 Activity -->
+        <activity
+            android:name=".ui.StatsActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.MainActivity" />
+
         <!-- 开机自启广播接收器 -->
         <receiver
             android:name=".BootReceiver"

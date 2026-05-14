@@ -20,6 +20,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.habittracker.R;
 import com.example.habittracker.data.AppDatabase;
+import android.view.Menu;
+import android.view.MenuItem;
+
 import com.example.habittracker.data.Checkin;
 import com.example.habittracker.data.Goal;
 import com.google.android.material.button.MaterialButton;
@@ -83,6 +86,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         loadGoals();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_stats) {
+            startActivity(new Intent(this, StatsActivity.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void requestNotificationPermission() {
