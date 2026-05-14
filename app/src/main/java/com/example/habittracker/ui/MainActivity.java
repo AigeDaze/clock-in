@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.os.Handler;
 import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         habitRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         adapter = new GoalAdapter(
-                goal -> performCheckIn(goal),
+                (goal, streak) -> performCheckIn(goal),
                 goal -> startActivity(new Intent(MainActivity.this, com.example.habittracker.HabitDetailActivity.class)
                         .putExtra("goal_id", goal.getId())));
         habitRecyclerView.setAdapter(adapter);
@@ -169,6 +170,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private static final int[] MILESTONES = {7, 21, 50, 100};
+
     private void performCheckIn(Goal goal) {
         String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
@@ -176,9 +179,46 @@ public class MainActivity extends AppCompatActivity {
             int count = db.checkinDao().hasCheckedIn(goal.getId(), today);
             if (count == 0) {
                 db.checkinDao().insert(new Checkin(goal.getId(), today));
+            } else {
+                runOnUiThread(this::loadGoals);
+                return;
             }
-            runOnUiThread(this::loadGoals);
+
+            List<String> dates = db.checkinDao().getCheckinDatesForGoal(goal.getId());
+            int newStreak = computeStreak(dates);
+
+            int milestone = 0;
+            for (int m : MILESTONES) {
+                if (newStreak == m) {
+                    milestone = m;
+                    break;
+                }
+            }
+
+            final int finalMilestone = milestone;
+            runOnUiThread(() -> {
+                if (finalMilestone > 0) {
+                    showMilestoneDialog(finalMilestone);
+                }
+                loadGoals();
+            });
         });
+    }
+
+    private void showMilestoneDialog(int days) {
+        androidx.appcompat.app.AlertDialog dialog = new com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+                .setTitle("🎉 里程碑达成！")
+                .setMessage("恭喜连续打卡 " + days + " 天！")
+                .setIcon(android.R.drawable.star_big_on)
+                .setCancelable(true)
+                .setPositiveButton("太棒了", (d, which) -> d.dismiss())
+                .show();
+
+        new Handler().postDelayed(() -> {
+            if (dialog.isShowing()) {
+                dialog.dismiss();
+            }
+        }, 2000);
     }
 
     private int computeStreak(List<String> dates) {

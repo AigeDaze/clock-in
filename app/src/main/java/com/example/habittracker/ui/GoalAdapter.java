@@ -22,7 +22,7 @@ public class GoalAdapter extends ListAdapter<GoalItem, GoalAdapter.ViewHolder> {
     private final OnGoalClickListener goalClickListener;
 
     public interface OnCheckInListener {
-        void onCheckInClick(Goal goal);
+        void onCheckInClick(Goal goal, int currentStreak);
     }
 
     public interface OnGoalClickListener {
@@ -73,7 +73,7 @@ public class GoalAdapter extends ListAdapter<GoalItem, GoalAdapter.ViewHolder> {
             } else {
                 checkInButton.setText(R.string.check_in);
                 checkInButton.setEnabled(true);
-                checkInButton.setOnClickListener(v -> checkInListener.onCheckInClick(item.goal));
+                checkInButton.setOnClickListener(v -> checkInListener.onCheckInClick(item.goal, item.streak));
             }
         }
     }
