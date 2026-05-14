@@ -1,6 +1,7 @@
 package com.example.habittracker.ui;
 
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.habittracker.R;
 import com.example.habittracker.data.AppDatabase;
+import com.google.android.material.color.DynamicColors;
 import com.example.habittracker.data.Goal;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -44,6 +46,7 @@ public class StatsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        DynamicColors.applyToActivityIfAvailable(this);
         setContentView(R.layout.activity_stats);
 
         db = AppDatabase.getInstance(this);
@@ -163,7 +166,10 @@ public class StatsActivity extends AppCompatActivity {
         }
 
         BarDataSet dataSet = new BarDataSet(entries, "完成率 %");
-        dataSet.setColor(getColor(R.color.purple_500));
+
+        TypedValue tv = new TypedValue();
+        getTheme().resolveAttribute(com.google.android.material.R.attr.colorPrimary, tv, true);
+        dataSet.setColor(tv.data);
         dataSet.setValueTextSize(10f);
         dataSet.setValueFormatter(new ValueFormatter() {
             @Override

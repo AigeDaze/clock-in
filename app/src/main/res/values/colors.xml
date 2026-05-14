@@ -7,4 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Widget colors (RemoteViews can only use explicit color values) -->
+    <color name="widget_bg">#F5F5F5</color>
+    <color name="widget_title">#3700B3</color>
+    <color name="widget_text">#212121</color>
+    <color name="widget_all_done">#018786</color>
 </resources>

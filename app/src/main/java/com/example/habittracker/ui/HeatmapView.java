@@ -1,10 +1,12 @@
 package com.example.habittracker.ui;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
 
 import java.text.SimpleDateFormat;
@@ -32,16 +34,19 @@ public class HeatmapView extends View {
     private int cellGap;
     private int labelPad;
 
-    private static final int COLOR_EMPTY = 0xFFEBEDF0;
     private static final int[] LEVEL_COLORS = {
-        0xFFEBEDF0, // 0
         0xFFC6E48B, // level 1 (1~25%)
+        0xFFC6E48B, // level 1 (1~25%) — same as index 0 for getLevelColor fallback
         0xFF7BC96F, // level 2 (25~50%)
         0xFF239A3B, // level 3 (50~75%)
         0xFF196127  // level 4 (75~100%)
     };
 
     private static final String[] DAY_LABELS = {"一", "二", "三", "四", "五", "六", "日"};
+
+    private int emptyColor;
+    private int labelColor;
+    private boolean isDark;
 
     public HeatmapView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -50,7 +55,16 @@ public class HeatmapView extends View {
         cellGap = (int) (3 * density);
         labelPad = (int) (6 * density);
 
-        labelPaint.setColor(0xFF767676);
+        int nightMode = context.getResources().getConfiguration().uiMode
+                & Configuration.UI_MODE_NIGHT_MASK;
+        isDark = nightMode == Configuration.UI_MODE_NIGHT_YES;
+        emptyColor = isDark ? 0xFF21262D : 0xFFEBEDF0;
+
+        TypedValue tv = new TypedValue();
+        context.getTheme().resolveAttribute(android.R.attr.textColorSecondary, tv, true);
+        labelColor = tv.data;
+
+        labelPaint.setColor(labelColor);
         labelPaint.setTextSize(9 * density);
         labelPaint.setTextAlign(Paint.Align.LEFT);
         labelPaint.setAntiAlias(true);
@@ -133,7 +147,7 @@ public class HeatmapView extends View {
 
         // Month labels at top
         labelPaint.setTextAlign(Paint.Align.LEFT);
-        labelPaint.setColor(0xFF767676);
+        labelPaint.setColor(labelColor);
         int lastMonth = -1;
         for (CellInfo cell : cells) {
             if (cell.col == 0) continue;
@@ -162,7 +176,7 @@ public class HeatmapView extends View {
     }
 
     private int getLevelColor(int count) {
-        if (count == 0) return COLOR_EMPTY;
+        if (count == 0) return emptyColor;
         if (maxCount <= 1) return LEVEL_COLORS[4];
         float ratio = (float) count / maxCount;
         if (ratio <= 0.25f) return LEVEL_COLORS[1];
