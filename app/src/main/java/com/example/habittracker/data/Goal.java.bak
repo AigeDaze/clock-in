@@ -1,0 +1,62 @@
+package com.example.habittracker.data;
+
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "goals")
+public class Goal {
+
+    @PrimaryKey(autoGenerate = true)
+    private long id;
+
+    @NonNull
+    @ColumnInfo(name = "title")
+    private String title;
+
+    @ColumnInfo(name = "reminder_hour")
+    private int reminderHour;
+
+    @ColumnInfo(name = "reminder_minute")
+    private int reminderMinute;
+
+    public Goal(@NonNull String title, int reminderHour, int reminderMinute) {
+        this.title = title;
+        this.reminderHour = reminderHour;
+        this.reminderMinute = reminderMinute;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    @NonNull
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(@NonNull String title) {
+        this.title = title;
+    }
+
+    public int getReminderHour() {
+        return reminderHour;
+    }
+
+    public void setReminderHour(int reminderHour) {
+        this.reminderHour = reminderHour;
+    }
+
+    public int getReminderMinute() {
+        return reminderMinute;
+    }
+
+    public void setReminderMinute(int reminderMinute) {
+        this.reminderMinute = reminderMinute;
+    }
+}

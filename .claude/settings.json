@@ -1,0 +1,51 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p \"/e/实验一/habittracker/app/src/main/java/com/example/habittracker\")",
+      "Bash(mkdir -p \"/e/实验一/habittracker/app/src/main/res/values\")",
+      "Bash(mkdir -p \"/e/实验一/habittracker/app/src/main/res/drawable\")",
+      "Bash(mkdir -p \"/e/实验一/habittracker/app/src/main/res/mipmap-hdpi\")",
+      "Bash(mkdir -p \"/e/实验一/habittracker/app/src/main/res/xml\")",
+      "Read(//c/Program Files/Android/**)",
+      "Read(//c/Program Files \\(x86\\)/**)",
+      "Bash(choco --version)",
+      "Bash(sdk version *)",
+      "Bash(./gradlew assembleDebug)",
+      "Read(//c/Users/12587/AppData/Local/Android/Sdk/**)",
+      "Read(//c/Users/12587/AppData/Local/Android/Sdk/platforms//**)",
+      "Read(//c/Users/12587/AppData/Local/Android/Sdk/build-tools//**)",
+      "Bash(ls \"/c/Users/12587/.gradle/caches/\" 2>/dev/null | head -20)",
+      "Read(//c/Users/12587/.gradle/caches//**)",
+      "Bash(mv app/src/main/java/com/example/habittracker/data/Goal.java app/src/main/java/com/example/habittracker/data/Goal.java.bak)",
+      "Bash(mv app/src/main/java/com/example/habittracker/data/Checkin.java app/src/main/java/com/example/habittracker/data/Checkin.java.bak)",
+      "Bash(mv app/src/main/java/com/example/habittracker/data/GoalDao.java app/src/main/java/com/example/habittracker/data/GoalDao.java.bak)",
+      "Bash(mv app/src/main/java/com/example/habittracker/data/CheckinDao.java app/src/main/java/com/example/habittracker/data/CheckinDao.java.bak)",
+      "Bash(mv app/src/main/java/com/example/habittracker/data/AppDatabase.java app/src/main/java/com/example/habittracker/data/AppDatabase.java.bak)",
+      "Bash(./gradlew assembleDebug --offline)",
+      "Bash(ln -sf \"android-36.1\" \"android-36\")",
+      "Bash(rm -f \"/c/Users/12587/AppData/Local/Android/Sdk/platforms/android-36\")",
+      "Bash(cp -r \"/c/Users/12587/AppData/Local/Android/Sdk/platforms/android-36.1\" \"/c/Users/12587/AppData/Local/Android/Sdk/platforms/android-34\")",
+      "Bash(cat > *)",
+      "Bash(# Clean up symlinks and copies first *)",
+      "Bash(mkdir -p \"/c/Users/12587/.gradle/caches/modules-2/files-2.1/androidx.appcompat/appcompat/1.6.1/pom-temp\")",
+      "Bash(cat)",
+      "Bash(mkdir -p \"/c/Users/12587/.gradle/caches/modules-2/files-2.1/com.google.android.material/material/1.10.0/pom-temp\")",
+      "Bash(mkdir -p \"/c/Users/12587/.gradle/caches/modules-2/files-2.1/androidx.recyclerview/recyclerview/1.3.2/pom-temp\")",
+      "Bash(mkdir -p \"/c/Users/12587/.gradle/caches/modules-2/files-2.1/androidx.core/core/1.10.1/pom-temp\")",
+      "Read(//c/Users/12587/.m2/repository/**)",
+      "Read(//c/Users/12587/.gradle/wrapper/dists/gradle-7.6-bin/9l9tetv7ltxvx3i8an4pb86ye/gradle-7.6/lib//**)",
+      "Bash(rm -f app/src/main/java/com/example/habittracker/data/Goal.java app/src/main/java/com/example/habittracker/data/Checkin.java app/src/main/java/com/example/habittracker/data/GoalDao.java app/src/main/java/com/example/habittracker/data/CheckinDao.java app/src/main/java/com/example/habittracker/data/AppDatabase.java)",
+      "Bash(mv app/src/main/java/com/example/habittracker/data/Goal.java.bak app/src/main/java/com/example/habittracker/data/Goal.java)",
+      "Bash(mv app/src/main/java/com/example/habittracker/data/Checkin.java.bak app/src/main/java/com/example/habittracker/data/Checkin.java)",
+      "Bash(mv app/src/main/java/com/example/habittracker/data/GoalDao.java.bak app/src/main/java/com/example/habittracker/data/GoalDao.java)",
+      "Bash(mv app/src/main/java/com/example/habittracker/data/CheckinDao.java.bak app/src/main/java/com/example/habittracker/data/CheckinDao.java)",
+      "Bash(cmd //c \"dir /x E:\\\\实验一\")",
+      "Bash(cmd //c 'mklink /J \"E:\\\\habittracker\" \"E:\\\\实验一\\\\habittracker\"')",
+      "Bash(./gradlew assembleDebug --stacktrace)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\12587\\AppData\\Local\\Android\\Sdk\\platforms\\android-34",
+      "C:\\Users\\12587\\AppData\\Local\\Android\\Sdk\\platforms\\android-36"
+    ]
+  }
+}

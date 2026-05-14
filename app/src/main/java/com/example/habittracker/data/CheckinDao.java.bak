@@ -1,0 +1,24 @@
+package com.example.habittracker.data;
+
+import androidx.room.Dao;
+import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
+import androidx.room.Query;
+
+import java.util.List;
+
+@Dao
+public interface CheckinDao {
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    long insert(Checkin checkin);
+
+    @Query("SELECT COUNT(*) FROM checkins WHERE goal_id = :goalId AND date = :date")
+    int hasCheckedIn(long goalId, String date);
+
+    @Query("SELECT date FROM checkins WHERE goal_id = :goalId ORDER BY date ASC")
+    List<String> getCheckinDatesForGoal(long goalId);
+
+    @Query("SELECT * FROM checkins WHERE goal_id = :goalId ORDER BY date DESC")
+    List<Checkin> getCheckinsForGoal(long goalId);
+}

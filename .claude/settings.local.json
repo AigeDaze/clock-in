@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(./gradlew assembleDebug --offline --info)",
+      "Bash(rm -f espresso-core-*.aar espresso-idling-resource-*.aar junit-*.aar runner-*.aar monitor-*.aar storage-*.aar annotation-1.0.1.aar)",
+      "Bash(rm -f recyclerview-1.1.0.aar)",
+      "Bash(rm -f viewpager2-1.1.0-beta02.aar)",
+      "Bash(rm -f core-runtime-2.1.0.aar)",
+      "Bash(rm -f annotation-experimental-*-sources.jar collection-*-sources.jar annotation-*-sources.jar)",
+      "Bash(# Search entire filesystem for aapt2 artifacts *)",
+      "Read(//c/Users/12587/.gradle/**)",
+      "Read(//c/Users/12587/.gradle/wrapper/**)",
+      "Bash(# Remove fake aapt2 from cache *)",
+      "Bash(jar tf *)",
+      "Bash(mkdir -p /tmp/aapt2-test)",
+      "Read(//tmp/**)",
+      "Bash(unzip -o ~/.gradle/caches/modules-2/files-2.1/com.android.tools.build/aapt2/7.4.2-8841542/676fb7c1e3125403a1908b9a77071e7897085ca3/aapt2-7.4.2-8841542-windows.jar)",
+      "Bash(chmod +x aapt2.exe)",
+      "Bash(./aapt2.exe dump *)",
+      "Bash(/c/Users/12587/AppData/Local/Android/Sdk/build-tools/34.0.0/aapt2.exe dump *)",
+      "Bash(/c/Users/12587/AppData/Local/Android/Sdk/build-tools/34.0.0/aapt2.exe version *)",
+      "Bash(cp /c/Users/12587/AppData/Local/Android/Sdk/build-tools/34.0.0/aapt2.exe .)",
+      "Bash(cp ~/.gradle/caches/modules-2/files-2.1/com.android.tools.build/aapt2/7.4.2-8841542/676fb7c1e3125403a1908b9a77071e7897085ca3/NOTICE .)",
+      "Bash(rm -f aapt2-7.4.2-8841542-windows.jar)",
+      "Bash(jar cf *)",
+      "Bash(cp aapt2-7.4.2-8841542-windows.jar ~/.gradle/caches/modules-2/files-2.1/com.android.tools.build/aapt2/7.4.2-8841542/676fb7c1e3125403a1908b9a77071e7897085ca3/aapt2-7.4.2-8841542-windows.jar)",
+      "Bash(find ~/.gradle/caches/modules-2/metadata-* -path \"*aapt2*7.4.2*\")"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\12587\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.build\\aapt2"
+    ]
+  }
+}
