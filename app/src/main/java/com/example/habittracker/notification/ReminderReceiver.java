@@ -14,6 +14,7 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.habittracker.ui.MainActivity;
+import com.example.habittracker.NotificationActionReceiver;
 import com.example.habittracker.R;
 import com.example.habittracker.data.AppDatabase;
 import com.example.habittracker.data.Goal;
@@ -74,13 +75,22 @@ public class ReminderReceiver extends BroadcastReceiver {
         PendingIntent contentIntent = PendingIntent.getActivity(
                 context, (int) goalId, openIntent, flags);
 
+        // 打卡快捷按钮
+        Intent checkinIntent = new Intent(context, NotificationActionReceiver.class);
+        checkinIntent.setAction(NotificationActionReceiver.ACTION_CHECKIN);
+        checkinIntent.putExtra("goal_id", goalId);
+
+        PendingIntent checkinPendingIntent = PendingIntent.getBroadcast(
+                context, (int) goalId + 10000, checkinIntent, flags);
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(android.R.drawable.ic_dialog_info)
                 .setContentTitle(context.getString(R.string.app_name))
                 .setContentText("该完成「" + goalTitle + "」了！")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setAutoCancel(true)
-                .setContentIntent(contentIntent);
+                .setContentIntent(contentIntent)
+                .addAction(android.R.drawable.ic_input_add, "打卡", checkinPendingIntent);
 
         NotificationManagerCompat.from(context).notify((int) goalId, builder.build());
     }
