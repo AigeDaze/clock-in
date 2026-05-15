@@ -9,14 +9,14 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
+        android:background="?attr/colorPrimary">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light"
-            app:title="@string/habit_list_title" />
+            app:title="@string/habit_list_title"
+            app:titleTextColor="?attr/colorOnPrimary" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -32,7 +32,7 @@
             android:id="@+id/text_today_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="今日待打卡"
+            android:text="@string/today_pending"
             android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="?attr/colorPrimary"
@@ -64,7 +64,7 @@
             android:id="@+id/text_all_done"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="今日全部完成 🎉"
+            android:text="@string/today_all_done"
             android:textSize="15sp"
             android:textColor="?attr/colorPrimary"
             android:gravity="center"

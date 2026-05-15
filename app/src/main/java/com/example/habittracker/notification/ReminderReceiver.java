@@ -19,7 +19,10 @@ import com.example.habittracker.R;
 import com.example.habittracker.data.AppDatabase;
 import com.example.habittracker.data.Goal;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class ReminderReceiver extends BroadcastReceiver {
 
@@ -32,6 +35,7 @@ public class ReminderReceiver extends BroadcastReceiver {
 
         long goalId = intent.getLongExtra("goal_id", -1);
         String goalTitle = intent.getStringExtra("goal_title");
+        String goalMotivation = intent.getStringExtra("goal_motivation");
 
         if (goalId == -1 || goalTitle == null) return;
 
@@ -43,9 +47,17 @@ public class ReminderReceiver extends BroadcastReceiver {
             }
         }
 
+        // 检查今日是否已打卡，已打卡则不提醒
+        String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        AppDatabase db = AppDatabase.getInstance(context);
+        if (db.checkinDao().hasCheckedIn(goalId, today) > 0) {
+            rescheduleForTomorrow(context, goalId, goalTitle, goalMotivation);
+            return;
+        }
+
         createNotificationChannel(context);
-        showNotification(context, goalId, goalTitle);
-        rescheduleForTomorrow(context, goalId, goalTitle);
+        showNotification(context, goalId, goalTitle, goalMotivation);
+        rescheduleForTomorrow(context, goalId, goalTitle, goalMotivation);
     }
 
     private void createNotificationChannel(Context context) {
@@ -63,7 +75,7 @@ public class ReminderReceiver extends BroadcastReceiver {
         }
     }
 
-    private void showNotification(Context context, long goalId, String goalTitle) {
+    private void showNotification(Context context, long goalId, String goalTitle, String goalMotivation) {
         Intent openIntent = new Intent(context, MainActivity.class);
         openIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
@@ -86,16 +98,20 @@ public class ReminderReceiver extends BroadcastReceiver {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(android.R.drawable.ic_dialog_info)
                 .setContentTitle(context.getString(R.string.app_name))
-                .setContentText("该完成「" + goalTitle + "」了！")
+                .setContentText(context.getString(R.string.reminder_notification_text, goalTitle))
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(
+                        context.getString(R.string.reminder_notification_text, goalTitle)
+                                + (goalMotivation != null && !goalMotivation.isEmpty()
+                                        ? "\n\"" + goalMotivation + "\"" : "")))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setAutoCancel(true)
                 .setContentIntent(contentIntent)
-                .addAction(android.R.drawable.ic_input_add, "打卡", checkinPendingIntent);
+                .addAction(android.R.drawable.ic_input_add, context.getString(R.string.checkin_btn), checkinPendingIntent);
 
         NotificationManagerCompat.from(context).notify((int) goalId, builder.build());
     }
 
-    private void rescheduleForTomorrow(Context context, long goalId, String goalTitle) {
+    private void rescheduleForTomorrow(Context context, long goalId, String goalTitle, String goalMotivation) {
         Goal goal = AppDatabase.getInstance(context).goalDao().getById(goalId);
         if (goal != null) {
             ReminderHelper.scheduleReminder(context, goal);
@@ -103,7 +119,8 @@ public class ReminderReceiver extends BroadcastReceiver {
         }
         // fallback: 数据库中找不到目标时，使用 intent 中的信息
         Calendar now = Calendar.getInstance();
-        Goal tempGoal = new Goal(goalTitle, now.get(Calendar.HOUR_OF_DAY), now.get(Calendar.MINUTE));
+        Goal tempGoal = new Goal(goalTitle, goalMotivation != null ? goalMotivation : "",
+                now.get(Calendar.HOUR_OF_DAY), now.get(Calendar.MINUTE));
         tempGoal.setId(goalId);
         ReminderHelper.scheduleReminder(context, tempGoal);
     }

@@ -7,20 +7,24 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.habittracker.ui.BaseActivity;
 
 import com.example.habittracker.data.AppDatabase;
 import com.example.habittracker.data.Checkin;
 import com.example.habittracker.data.Goal;
 import com.example.habittracker.notification.ReminderHelper;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.List;
 
-public class HabitDetailActivity extends AppCompatActivity {
+public class HabitDetailActivity extends BaseActivity {
 
     private long goalId;
+    private MaterialToolbar toolbar;
     private TextInputEditText editGoalName;
+    private TextInputEditText editMotivation;
     private TimePicker timePicker;
     private Button btnSave;
     private Button btnDelete;
@@ -31,18 +35,18 @@ public class HabitDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_habit_detail);
 
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+        toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(v -> finish());
 
         goalId = getIntent().getLongExtra("goal_id", -1);
         if (goalId == -1) {
-            Toast.makeText(this, "习惯不存在", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.habit_not_found, Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
 
         editGoalName = findViewById(R.id.edit_goal_name);
+        editMotivation = findViewById(R.id.edit_motivation);
         timePicker = findViewById(R.id.time_picker);
         btnSave = findViewById(R.id.btn_save);
         btnDelete = findViewById(R.id.btn_delete);
@@ -67,7 +71,7 @@ public class HabitDetailActivity extends AppCompatActivity {
             Goal goal = AppDatabase.getInstance(this).goalDao().getById(goalId);
             if (goal == null) {
                 runOnUiThread(() -> {
-                    Toast.makeText(this, "习惯不存在", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.habit_not_found, Toast.LENGTH_SHORT).show();
                     finish();
                 });
                 return;
@@ -78,12 +82,13 @@ public class HabitDetailActivity extends AppCompatActivity {
 
             runOnUiThread(() -> {
                 editGoalName.setText(goal.getTitle());
+                editMotivation.setText(goal.getMotivation());
                 timePicker.setHour(goal.getReminderHour());
                 timePicker.setMinute(goal.getReminderMinute());
-                setTitle(goal.getTitle());
+                toolbar.setTitle(goal.getTitle());
 
                 if (checkinDates.isEmpty()) {
-                    textCheckinHistory.setText("暂无打卡记录");
+                    textCheckinHistory.setText(R.string.no_checkin_records);
                 } else {
                     StringBuilder sb = new StringBuilder();
                     for (String date : checkinDates) {
@@ -98,15 +103,16 @@ public class HabitDetailActivity extends AppCompatActivity {
     private void saveGoal() {
         String name = editGoalName.getText().toString().trim();
         if (name.isEmpty()) {
-            editGoalName.setError("请输入习惯名称");
+            editGoalName.setError(getString(R.string.enter_habit_name));
             return;
         }
 
         int hour = timePicker.getHour();
         int minute = timePicker.getMinute();
+        String motivation = editMotivation.getText().toString().trim();
 
         AppDatabase.databaseWriteExecutor.execute(() -> {
-            Goal goal = new Goal(name, hour, minute);
+            Goal goal = new Goal(name, motivation, hour, minute);
             goal.setId(goalId);
             AppDatabase.getInstance(this).goalDao().update(goal);
 
@@ -114,7 +120,7 @@ public class HabitDetailActivity extends AppCompatActivity {
             ReminderHelper.scheduleReminder(this, goal);
 
             runOnUiThread(() -> {
-                Toast.makeText(this, "已保存", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.saved_toast, Toast.LENGTH_SHORT).show();
                 finish();
             });
         });
@@ -136,7 +142,7 @@ public class HabitDetailActivity extends AppCompatActivity {
             ReminderHelper.cancelReminder(this, goalId);
 
             runOnUiThread(() -> {
-                Toast.makeText(this, "已删除", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.deleted_toast, Toast.LENGTH_SHORT).show();
                 finish();
             });
         });

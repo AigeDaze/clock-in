@@ -35,6 +35,7 @@ public class ReminderHelper {
         intent.setAction(ACTION_REMINDER);
         intent.putExtra("goal_id", goal.getId());
         intent.putExtra("goal_title", goal.getTitle());
+        intent.putExtra("goal_motivation", goal.getMotivation());
 
         int requestCode = (int) goal.getId();
         int flags = PendingIntent.FLAG_UPDATE_CURRENT;

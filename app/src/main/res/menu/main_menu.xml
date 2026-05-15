@@ -4,11 +4,13 @@
     <item
         android:id="@+id/action_stats"
         android:orderInCategory="100"
-        android:title="统计"
-        app:showAsAction="never" />
+        android:title="@string/stats_title"
+        android:icon="@android:drawable/ic_menu_sort_by_size"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="200"
-        android:title="设置"
-        app:showAsAction="never" />
+        android:title="@string/settings"
+        android:icon="@android:drawable/ic_menu_preferences"
+        app:showAsAction="ifRoom" />
 </menu>

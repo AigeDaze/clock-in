@@ -12,7 +12,6 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -21,7 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.habittracker.R;
 import com.example.habittracker.data.AppDatabase;
-import com.google.android.material.color.DynamicColors;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -38,7 +36,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private RecyclerView habitRecyclerView;
     private GoalAdapter adapter;
@@ -53,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DynamicColors.applyToActivityIfAvailable(this);
         setContentView(R.layout.activity_main);
 
         requestNotificationPermission();
@@ -101,6 +98,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_stats) {
             startActivity(new Intent(this, StatsActivity.class));
+            return true;
+        }
+        if (item.getItemId() == R.id.action_settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -209,11 +210,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void showMilestoneDialog(int days) {
         androidx.appcompat.app.AlertDialog dialog = new com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
-                .setTitle("🎉 里程碑达成！")
-                .setMessage("恭喜连续打卡 " + days + " 天！")
+                .setTitle(getString(R.string.milestone_title))
+                .setMessage(getString(R.string.milestone_message, days))
                 .setIcon(android.R.drawable.star_big_on)
                 .setCancelable(true)
-                .setPositiveButton("太棒了", (d, which) -> d.dismiss())
+                .setPositiveButton(R.string.milestone_button, (d, which) -> d.dismiss())
                 .show();
 
         new Handler().postDelayed(() -> {

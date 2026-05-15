@@ -14,8 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.habittracker.R;
 import com.example.habittracker.data.Goal;
 
-import java.util.Locale;
-
 public class GoalAdapter extends ListAdapter<GoalItem, GoalAdapter.ViewHolder> {
 
     private final OnCheckInListener checkInListener;
@@ -63,7 +61,7 @@ public class GoalAdapter extends ListAdapter<GoalItem, GoalAdapter.ViewHolder> {
 
         void bind(GoalItem item) {
             titleText.setText(item.goal.getTitle());
-            streakText.setText(String.format(Locale.getDefault(), "连续 %d 天", item.streak));
+            streakText.setText(streakText.getContext().getString(R.string.streak_format, item.streak));
 
             itemView.setOnClickListener(v -> goalClickListener.onGoalClick(item.goal));
 

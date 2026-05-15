@@ -11,7 +11,7 @@
         android:id="@+id/widget_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="今日待打卡"
+        android:text="@string/today_pending"
         android:textSize="14sp"
         android:textStyle="bold"
         android:textColor="@color/widget_title"
@@ -38,7 +38,7 @@
             android:id="@+id/widget_btn_1"
             android:layout_width="48dp"
             android:layout_height="28dp"
-            android:text="打卡"
+            android:text="@string/checkin_btn"
             android:textSize="10sp" />
     </LinearLayout>
 
@@ -63,7 +63,7 @@
             android:id="@+id/widget_btn_2"
             android:layout_width="48dp"
             android:layout_height="28dp"
-            android:text="打卡"
+            android:text="@string/checkin_btn"
             android:textSize="10sp" />
     </LinearLayout>
 
@@ -88,7 +88,7 @@
             android:id="@+id/widget_btn_3"
             android:layout_width="48dp"
             android:layout_height="28dp"
-            android:text="打卡"
+            android:text="@string/checkin_btn"
             android:textSize="10sp" />
     </LinearLayout>
 
@@ -113,7 +113,7 @@
             android:id="@+id/widget_btn_4"
             android:layout_width="48dp"
             android:layout_height="28dp"
-            android:text="打卡"
+            android:text="@string/checkin_btn"
             android:textSize="10sp" />
     </LinearLayout>
 
@@ -138,7 +138,7 @@
             android:id="@+id/widget_btn_5"
             android:layout_width="48dp"
             android:layout_height="28dp"
-            android:text="打卡"
+            android:text="@string/checkin_btn"
             android:textSize="10sp" />
     </LinearLayout>
 
@@ -163,7 +163,7 @@
             android:id="@+id/widget_btn_6"
             android:layout_width="48dp"
             android:layout_height="28dp"
-            android:text="打卡"
+            android:text="@string/checkin_btn"
             android:textSize="10sp" />
     </LinearLayout>
 
@@ -171,7 +171,7 @@
         android:id="@+id/widget_all_done"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="今日全部完成"
+        android:text="@string/today_all_done"
         android:textSize="13sp"
         android:textColor="@color/widget_all_done"
         android:gravity="center"

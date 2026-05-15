@@ -7,11 +7,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.habittracker.R;
 import com.example.habittracker.data.AppDatabase;
-import com.google.android.material.color.DynamicColors;
 import com.example.habittracker.data.Goal;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -31,7 +29,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class StatsActivity extends AppCompatActivity {
+public class StatsActivity extends BaseActivity {
 
     private static final long GOAL_ID_ALL = -1;
 
@@ -46,7 +44,6 @@ public class StatsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DynamicColors.applyToActivityIfAvailable(this);
         setContentView(R.layout.activity_stats);
 
         db = AppDatabase.getInstance(this);
@@ -80,7 +77,7 @@ public class StatsActivity extends AppCompatActivity {
         AppDatabase.databaseWriteExecutor.execute(() -> {
             goals = db.goalDao().getAllGoalsSync();
             List<String> goalNames = new ArrayList<>();
-            goalNames.add("全部习惯");
+            goalNames.add(getString(R.string.all_goals));
             for (Goal g : goals) {
                 goalNames.add(g.getTitle());
             }
@@ -151,7 +148,7 @@ public class StatsActivity extends AppCompatActivity {
             float rate = totalPossible > 0 ? (float) checkinCount / totalPossible * 100 : 0;
 
             cal.set(Calendar.DAY_OF_MONTH, 1);
-            String label = (cal.get(Calendar.MONTH) + 1) + "月";
+            String label = getResources().getStringArray(R.array.month_labels)[cal.get(Calendar.MONTH)];
             monthLabels.add(label);
             rates.add(rate);
         }
@@ -165,7 +162,7 @@ public class StatsActivity extends AppCompatActivity {
             entries.add(new BarEntry(i, data.rates.get(i)));
         }
 
-        BarDataSet dataSet = new BarDataSet(entries, "完成率 %");
+        BarDataSet dataSet = new BarDataSet(entries, getString(R.string.completion_rate_label));
 
         TypedValue tv = new TypedValue();
         getTheme().resolveAttribute(com.google.android.material.R.attr.colorPrimary, tv, true);

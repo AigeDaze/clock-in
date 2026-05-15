@@ -9,6 +9,8 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
 
+import com.example.habittracker.R;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,7 +44,8 @@ public class HeatmapView extends View {
         0xFF196127  // level 4 (75~100%)
     };
 
-    private static final String[] DAY_LABELS = {"一", "二", "三", "四", "五", "六", "日"};
+    private final String[] dayLabels;
+    private final String[] monthLabels;
 
     private int emptyColor;
     private int labelColor;
@@ -54,6 +57,9 @@ public class HeatmapView extends View {
         cellSize = (int) (15 * density);
         cellGap = (int) (3 * density);
         labelPad = (int) (6 * density);
+
+        dayLabels = context.getResources().getStringArray(R.array.day_labels);
+        monthLabels = context.getResources().getStringArray(R.array.month_labels);
 
         int nightMode = context.getResources().getConfiguration().uiMode
                 & Configuration.UI_MODE_NIGHT_MASK;
@@ -141,7 +147,7 @@ public class HeatmapView extends View {
             if (i % 2 == 0) {
                 float y = padTop + labelPad + i * (cellSize + cellGap) + cellSize / 2f;
                 float textY = y - (labelPaint.descent() + labelPaint.ascent()) / 2;
-                canvas.drawText(DAY_LABELS[i], padLeft + 2 * density, textY, labelPaint);
+                canvas.drawText(dayLabels[i], padLeft + 2 * density, textY, labelPaint);
             }
         }
 
@@ -159,7 +165,7 @@ public class HeatmapView extends View {
                     lastMonth = m;
                     float x = padLeft + labelW + cell.col * (cellSize + cellGap);
                     float textY = padTop + labelPad / 2f - (labelPaint.descent() + labelPaint.ascent()) / 2;
-                    canvas.drawText(m + "月", x, textY, labelPaint);
+                    canvas.drawText(monthLabels[m - 1], x, textY, labelPaint);
                 }
             } catch (Exception ignored) {}
         }

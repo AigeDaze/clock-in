@@ -31,10 +31,10 @@ public class NotificationActionReceiver extends BroadcastReceiver {
         int count = db.checkinDao().hasCheckedIn(goalId, today);
 
         if (count > 0) {
-            Toast.makeText(context, "已打卡", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.already_checked_in, Toast.LENGTH_SHORT).show();
         } else {
             db.checkinDao().insert(new Checkin(goalId, today));
-            Toast.makeText(context, "打卡成功", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.checkin_success_toast, Toast.LENGTH_SHORT).show();
         }
 
         NotificationManagerCompat.from(context).cancel((int) goalId);

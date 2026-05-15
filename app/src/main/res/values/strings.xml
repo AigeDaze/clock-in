@@ -27,4 +27,59 @@
     <string name="reminder_time">提醒时间</string>
     <string name="empty_list">还没有习惯，点击右下角添加吧</string>
     <string name="widget_description">在桌面显示今日待打卡目标，点击即可打卡</string>
+    <string name="settings">设置</string>
+    <string name="language">语言</string>
+    <string name="chinese">中文</string>
+    <string name="english">English</string>
+    <string name="language_changed">语言已更改</string>
+    <string name="checkin_history">打卡记录</string>
+    <string name="no_checkin_records">暂无打卡记录</string>
+
+    <string name="today_pending">今日待打卡</string>
+    <string name="today_all_done">今日全部完成 🎉</string>
+    <string name="stats_title">统计</string>
+    <string name="heatmap_title">近30天打卡热力图</string>
+    <string name="monthly_completion_rate">月度完成率</string>
+    <string name="already_checked_in">已打卡</string>
+    <string name="checkin_success_toast">打卡成功</string>
+    <string name="habit_not_found">习惯不存在</string>
+    <string name="enter_habit_name">请输入习惯名称</string>
+    <string name="saved_toast">已保存</string>
+    <string name="deleted_toast">已删除</string>
+    <string name="habit_added_toast">习惯已添加</string>
+    <string name="reminder_notification_text">该完成「%1$s」了！</string>
+    <string name="streak_format">连续 %1$d 天</string>
+    <string name="milestone_title">🎉 里程碑达成！</string>
+    <string name="milestone_message">恭喜连续打卡 %1$d 天！</string>
+    <string name="milestone_button">太棒了</string>
+    <string name="all_goals">全部习惯</string>
+    <string name="completion_rate_label">完成率 %</string>
+    <string name="checkin_btn">打卡</string>
+    <string name="motivation_hint">激励语（选填）</string>
+    <string name="theme_color">主题色调</string>
+    <string name="wallpaper">壁纸</string>
+    <string name="pick_wallpaper">选择壁纸</string>
+    <string name="reset_wallpaper">恢复默认</string>
+    <string name="confirm_crop">确认裁剪</string>
+    <string name="wallpaper_opacity">壁纸不透明度</string>
+    <string name="font_settings">字体设置</string>
+    <string name="font_size">字体大小</string>
+    <string name="font_bold">粗体文字</string>
+    <string-array name="font_scale_labels">
+        <item>较小</item><item>默认</item><item>较大</item><item>大</item>
+    </string-array>
+
+    <string-array name="day_labels">
+        <item>一</item>
+        <item>二</item>
+        <item>三</item>
+        <item>四</item>
+        <item>五</item>
+        <item>六</item>
+        <item>日</item>
+    </string-array>
+    <string-array name="month_labels">
+        <item>1月</item><item>2月</item><item>3月</item><item>4月</item><item>5月</item><item>6月</item>
+        <item>7月</item><item>8月</item><item>9月</item><item>10月</item><item>11月</item><item>12月</item>
+    </string-array>
 </resources>

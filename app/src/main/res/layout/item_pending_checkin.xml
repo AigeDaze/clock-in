@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="36dp"
             android:layout_marginTop="8dp"
-            android:text="打卡"
+            android:text="@string/checkin_btn"
             android:textSize="12sp"
             style="@style/Widget.MaterialComponents.Button" />
 
